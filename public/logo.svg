@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 140">
+
+<rect width="500" height="140" fill="#0f172a"></rect>
+
+<g transform="translate(30,25)">
+
+<circle cx="40" cy="40" r="36" stroke="#facc15" stroke-width="6" fill="none"></circle>
+
+<path d="M40 15 L40 45
+         C40 55 55 55 55 65
+         C55 80 40 85 30 75" stroke="#facc15" stroke-width="6" fill="none" stroke-linecap="round"></path>
+
+</g>
+
+<text x="110" y="65" font-family="Segoe UI, Arial" font-size="34" fill="#facc15" font-weight="bold">
+
+RIGGER PRO
+
+</text>
+
+<text x="110" y="100" font-family="Segoe UI, Arial" font-size="16" fill="#94a3b8">
+
+Professional Rigging Calculators
+
+</text>
+
+</svg>
