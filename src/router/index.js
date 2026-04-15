@@ -1,45 +1,99 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router"
 
-import Home from '../views/Home.vue'
+import Home from "../views/Home.vue"
+import Dashboard from "../views/Dashboard.vue"
 
-const routes=[
+const routes = [
 
-    { path:'/', component:Home },
-    
-    { path:'/calc/tension', component:()=>import('@/components/calculators/SlingTension.vue') },
-    
-    { path:'/calc/angle-factor', component:()=>import('@/components/calculators/SlingAngleFactor.vue') },
-    
-    { path:'/calc/load-weight', component:()=>import('@/components/calculators/LoadWeight.vue') },
-    
-    { path:'/calc/cog', component:()=>import('@/components/calculators/CenterGravity.vue') },
-    
-    { path:'/calc/crane-moment', component:()=>import('@/components/calculators/CraneMoment.vue') },
-    
-    { path:'/calc/shackle-safety', component:()=>import('@/components/calculators/ShackleSafety.vue') },
-    
-    { path:'/calc/multi-leg', component:()=>import('@/components/calculators/MultiLegSling.vue') },
-    
-    { path:'/calc/distribution', component:()=>import('@/components/calculators/LoadDistribution.vue') },
-    
-    { path:'/calc/wind', component:()=>import('@/components/calculators/WindLoad.vue') },
-    
-    { path:'/calc/safety', component:()=>import('@/components/calculators/SafetyFactor.vue') },
-    
-    { path:'/calc/hook', component:()=>import('@/components/calculators/HookLoad.vue') },
-    
-    { path:'/calc/lift', component:()=>import('@/components/calculators/LiftPlanning.vue') },
-    {
-        path:'/dashboard',
-        component:()=>import('../views/Dashboard.vue')
-        }
-    ]
+{
+path: "/",
+name: "home",
+component: Home
+},
+
+{
+path: "/dashboard",
+name: "dashboard",
+component: Dashboard
+},
+
+{
+path: "/calc/tension",
+name: "sling-tension",
+component: () => import("@/components/calculators/SlingTension.vue")
+},
+
+{
+path: "/calc/angle-factor",
+name: "angle-factor",
+component: () => import("@/components/calculators/SlingAngleFactor.vue")
+},
+
+{
+path: "/calc/load-weight",
+name: "load-weight",
+component: () => import("@/components/calculators/LoadWeight.vue")
+},
+
+{
+path: "/calc/cog",
+name: "center-gravity",
+component: () => import("@/components/calculators/CenterGravity.vue")
+},
+
+{
+path: "/calc/crane-moment",
+name: "crane-moment",
+component: () => import("@/components/calculators/CraneMoment.vue")
+},
+
+{
+path: "/calc/shackle-safety",
+name: "shackle-safety",
+component: () => import("@/components/calculators/ShackleSafety.vue")
+},
+
+{
+path: "/calc/multi-leg",
+name: "multi-leg",
+component: () => import("@/components/calculators/MultiLegSling.vue")
+},
+
+{
+path: "/calc/distribution",
+name: "load-distribution",
+component: () => import("@/components/calculators/LoadDistribution.vue")
+},
+
+{
+path: "/calc/wind",
+name: "wind-load",
+component: () => import("@/components/calculators/WindLoad.vue")
+},
+
+{
+path: "/calc/safety",
+name: "safety-factor",
+component: () => import("@/components/calculators/SafetyFactor.vue")
+},
+
+{
+path: "/calc/hook",
+name: "hook-load",
+component: () => import("@/components/calculators/HookLoad.vue")
+},
+
+{
+path: "/calc/lift",
+name: "lift-planning",
+component: () => import("@/components/calculators/LiftPlanning.vue")
+}
+
+]
 
 const router = createRouter({
-
-history:createWebHistory(),
+history: createWebHistory(),
 routes
-
 })
 
 export default router

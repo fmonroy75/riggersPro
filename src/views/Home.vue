@@ -1,85 +1,150 @@
+<script setup>
+
+import { useRouter } from "vue-router"
+
+const router = useRouter()
+
+const calculators = [
+
+{ name:"Sling Tension", icon:"🪝", route:"/calc/tension" },
+{ name:"Angle Factor", icon:"📐", route:"/calc/angle-factor" },
+{ name:"Load Weight", icon:"⚖️", route:"/calc/load-weight" },
+{ name:"Center Gravity", icon:"⚙️", route:"/calc/cog" },
+{ name:"Crane Moment", icon:"🏗️", route:"/calc/crane-moment" },
+{ name:"Shackle Safety", icon:"🔗", route:"/calc/shackle-safety" },
+{ name:"Multi Leg Sling", icon:"🪢", route:"/calc/multi-leg" },
+{ name:"Load Distribution", icon:"📦", route:"/calc/distribution" },
+{ name:"Wind Load", icon:"🌬️", route:"/calc/wind" },
+{ name:"Hook Load", icon:"🪝", route:"/calc/hook" },
+{ name:"Safety Factor", icon:"⚠️", route:"/calc/safety" },
+{ name:"Lift Planning", icon:"📋", route:"/calc/lift" }
+
+]
+
+</script>
+
 <template>
 
-    <v-container>
-    
-    <h1 class="mb-6">Rigger Calculators</h1>
-    
-    <v-row>
-    
-    <v-col
-    v-for="calc in calculators"
-    :key="calc.name"
-    cols="12"
-    md="4"
-    >
-    
-    <v-card
-    class="pa-4"
-    @click="$router.push(calc.route)"
-    >
-    
-    <v-card-title>
-    {{ calc.name }}
-    </v-card-title>
-    
-    <v-card-text>
-    {{ calc.description }}
-    </v-card-text>
-    
-    </v-card>
-    
-    </v-col>
-    
-    </v-row>
-    
-    </v-container>
-    
-    </template>
-    
-    <script>
-    
-    export default{
-    
-    data(){
-    
-    return{
-    
-    calculators:[
-    {
-name:"Dashboard",
-route:"/dashboard",
-description:"Rigging analytics"
-},
-    { name:"Sling Tension", route:"/calc/tension", description:"Tension on sling legs" },
-    
-    { name:"Sling Angle Factor", route:"/calc/angle-factor", description:"Angle multiplier" },
-    
-    { name:"Load Weight", route:"/calc/load-weight", description:"Weight from density and volume" },
-    
-    { name:"Center of Gravity", route:"/calc/cog", description:"Calculate load balance" },
-    
-    { name:"Crane Moment", route:"/calc/crane-moment", description:"Load moment for crane" },
-    
-    { name:"Shackle Safety", route:"/calc/shackle-safety", description:"Check shackle safety factor" },
-    
-    { name:"Multi-leg Sling", route:"/calc/multi-leg", description:"Tension on multiple sling legs" },
-    
-    { name:"Load Distribution", route:"/calc/distribution", description:"Load distribution points" },
-    
-    { name:"Wind Load", route:"/calc/wind", description:"Wind force on load" },
-    
-    { name:"Safety Factor", route:"/calc/safety", description:"General safety factor" },
-    
-    { name:"Hook Load", route:"/calc/hook", description:"Total hook load" },
-    
-    { name:"Lift Planning", route:"/calc/lift", description:"Lift planning with margin" }
-    
-    ]
-    
-    }
-    
-    }
-    
-    }
-    
-    </script>
+<div class="home">
+
+<h1 class="title">
+
+RIGGER <span>PRO</span>
+
+</h1>
+
+<div class="grid">
+
+<div
+v-for="calc in calculators"
+:key="calc.name"
+class="card"
+@click="router.push(calc.route)"
+>
+
+<div class="icon">
+
+{{ calc.icon }}
+
+</div>
+
+<div class="name">
+
+{{ calc.name }}
+
+</div>
+
+</div>
+
+</div>
+
+<div class="sponsor">
+
+Powered by  
+<b>IngeniumBright</b>  
+&  
+<b>LanguageArtLife</b>
+
+</div>
+
+</div>
+
+</template>
+
+<style scoped>
+
+.home{
+
+padding:30px;
+
+}
+
+.title{
+
+text-align:center;
+margin-bottom:30px;
+font-size:34px;
+
+}
+
+.title span{
+
+color:#facc15;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:16px;
+
+}
+
+.card{
+
+background:#1e293b;
+
+padding:18px;
+
+border-radius:12px;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:0.25s;
+
+}
+
+.card:hover{
+
+background:#334155;
+transform:scale(1.05);
+
+}
+
+.icon{
+
+font-size:30px;
+margin-bottom:8px;
+
+}
+
+.name{
+
+font-size:14px;
+
+}
+
+.sponsor{
+
+margin-top:40px;
+text-align:center;
+opacity:0.6;
+
+}
+
+</style>

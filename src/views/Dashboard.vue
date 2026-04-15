@@ -1,99 +1,84 @@
+<script setup>
+
+import { ref } from "vue"
+
+const totalLifts = ref(3)
+const avgLoad = ref(1800)
+const avgAngle = ref(45)
+
+</script>
+
 <template>
 
-    <v-container>
-    
-    <h1>Rigging Analytics</h1>
-    
-    <v-row>
-    
-    <v-col cols="12" md="4">
-    
-    <v-card class="pa-4">
-    
-    <h3>Total Lifts</h3>
-    
-    <h1>{{ totalLifts }}</h1>
-    
-    </v-card>
-    
-    </v-col>
-    
-    <v-col cols="12" md="4">
-    
-    <v-card class="pa-4">
-    
-    <h3>Average Load</h3>
-    
-    <h1>{{ avgLoad }} kg</h1>
-    
-    </v-card>
-    
-    </v-col>
-    
-    <v-col cols="12" md="4">
-    
-    <v-card class="pa-4">
-    
-    <h3>Average Angle</h3>
-    
-    <h1>{{ avgAngle }} °</h1>
-    
-    </v-card>
-    
-    </v-col>
-    
-    </v-row>
-    
-    </v-container>
-    
-    </template>
-    
-    <script>
-    
-    export default{
-    
-    computed:{
-    
-    history(){
-    return this.$store.state.history
-    },
-    
-    totalLifts(){
-    return this.history.length
-    },
-    
-    avgLoad(){
-    
-    if(!this.history.length) return 0
-    
-    let sum=0
-    
-    this.history.forEach(h=>{
-    
-    sum+=Number(h.load||0)
-    
-    })
-    
-    return (sum/this.history.length).toFixed(1)
-    
-    },
-    
-    avgAngle(){
-    
-    let angles=this.history
-    .filter(h=>h.angle)
-    .map(h=>h.angle)
-    
-    if(!angles.length) return 0
-    
-    let sum=angles.reduce((a,b)=>a+b,0)
-    
-    return (sum/angles.length).toFixed(1)
-    
-    }
-    
-    }
-    
-    }
-    
-    </script>
+<div class="dashboard">
+
+<h2>
+
+Rigging Analytics
+
+</h2>
+
+<div class="stats">
+
+<div class="card">
+
+Total Lifts
+
+<h3>{{ totalLifts }}</h3>
+
+</div>
+
+<div class="card">
+
+Average Load
+
+<h3>{{ avgLoad }} kg</h3>
+
+</div>
+
+<div class="card">
+
+Average Angle
+
+<h3>{{ avgAngle }}°</h3>
+
+</div>
+
+</div>
+
+<div class="upgrade">
+
+Upgrade to Premium  
+to unlock full analytics
+
+</div>
+
+</div>
+
+</template>
+
+<style scoped>
+
+.dashboard{
+padding:20px;
+}
+
+.stats{
+display:flex;
+gap:10px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+flex:1;
+border-radius:10px;
+}
+
+.upgrade{
+margin-top:30px;
+text-align:center;
+opacity:0.7;
+}
+
+</style>
