@@ -6,10 +6,9 @@ import path from 'path'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig(() => {
-  // GitHub Pages sirve el sitio bajo "/<repo>/". En GitHub Actions existe
-  // GITHUB_REPOSITORY="owner/repo", asi que podemos deducir el base sin hardcodear.
-  const repo = process.env.GITHUB_REPOSITORY?.split('/')?.[1]
-  const base = repo ? `/${repo}/` : '/'
+  // Repo objetivo para GitHub Pages:
+  // https://fmonroy75.github.io/riggersPro/
+  const base = '/riggersPro/'
 
   return {
     base,
