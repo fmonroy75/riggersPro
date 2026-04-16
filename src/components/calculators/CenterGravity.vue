@@ -15,13 +15,19 @@
     <v-alert v-if="cg" type="info">
     Center of Gravity: {{ cg.toFixed(2) }}
     </v-alert>
+    <RiggingAlerts :alerts="alerts" />
     
     </v-container>
     
     </template>
     
     <script>
+    import { analyzeLift } from "@/services/alertEngine"
+    import RiggingAlerts from "@/components/RiggingAlerts.vue"
     export default{
+    components:{
+    RiggingAlerts
+    },
     
     data(){
     return{
@@ -29,7 +35,8 @@
     d1:null,
     w2:null,
     d2:null,
-    cg:null
+    cg:null,
+    alerts:[]
     }
     },
     
@@ -37,6 +44,9 @@
     calculate(){
     
     this.cg = ((this.w1*this.d1)+(this.w2*this.d2))/(this.w1+this.w2)
+    this.alerts = analyzeLift("center-gravity",{
+    cg:this.cg
+    })
     // 🔴 GUARDAR EN HISTORIAL (para analytics)
     this.$store.commit("ADD_HISTORY",{
     type:"Center Gravity",

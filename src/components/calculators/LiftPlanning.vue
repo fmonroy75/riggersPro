@@ -12,19 +12,26 @@
     <v-alert v-if="total" type="info">
     Recommended Lift Capacity: {{ total.toFixed(2) }} kg
     </v-alert>
+    <RiggingAlerts :alerts="alerts" />
     
     </v-container>
     
     </template>
     
     <script>
+    import { analyzeLift } from "@/services/alertEngine"
+    import RiggingAlerts from "@/components/RiggingAlerts.vue"
     export default{
+    components:{
+    RiggingAlerts
+    },
     
     data(){
     return{
     load:null,
     margin:25,
-    total:null
+    total:null,
+    alerts:[]
     }
     },
     
@@ -32,6 +39,10 @@
     calculate(){
     
     this.total=this.load*(1+(this.margin/100))
+    this.alerts = analyzeLift("lift-planning",{
+    margin:this.margin,
+    total:this.total
+    })
     // 🔴 GUARDAR EN HISTORIAL (para analytics)
     this.$store.commit("ADD_HISTORY",{
     type:"Lift Planing",

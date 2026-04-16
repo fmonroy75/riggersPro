@@ -13,20 +13,27 @@
     <v-alert v-if="tension" type="info">
     Tension per leg: {{ tension.toFixed(2) }} kg
     </v-alert>
+    <RiggingAlerts :alerts="alerts" />
     
     </v-container>
     
     </template>
     
     <script>
+    import { analyzeLift } from "@/services/alertEngine"
+    import RiggingAlerts from "@/components/RiggingAlerts.vue"
     export default{
+    components:{
+    RiggingAlerts
+    },
     
     data(){
     return{
     weight:null,
     legs:null,
     angle:null,
-    tension:null
+    tension:null,
+    alerts:[]
     }
     },
     
@@ -36,6 +43,11 @@
     const rad=this.angle*Math.PI/180
     
     this.tension=this.weight/(this.legs*Math.sin(rad))
+    this.alerts = analyzeLift("multi-leg",{
+    legs:this.legs,
+    angle:this.angle,
+    tension:this.tension
+    })
     // 🔴 GUARDAR EN HISTORIAL (para analytics)
     this.$store.commit("ADD_HISTORY",{
     type:"Multi leg Sling",

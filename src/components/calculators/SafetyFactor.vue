@@ -12,25 +12,35 @@
     <v-alert v-if="sf" type="info">
     Safety Factor: {{ sf.toFixed(2) }}
     </v-alert>
+    <RiggingAlerts :alerts="alerts" />
     
     </v-container>
     
     </template>
     
     <script>
+    import { analyzeLift } from "@/services/alertEngine"
+    import RiggingAlerts from "@/components/RiggingAlerts.vue"
     export default{
+    components:{
+    RiggingAlerts
+    },
     
     data(){
     return{
     strength:null,
     load:null,
-    sf:null
+    sf:null,
+    alerts:[]
     }
     },
     
     methods:{
     calculate(){
     this.sf=this.strength/this.load
+    this.alerts = analyzeLift("safety-factor",{
+    sf:this.sf
+    })
     // 🔴 GUARDAR EN HISTORIAL (para analytics)
     this.$store.commit("ADD_HISTORY",{
     type:"Safety Factor",

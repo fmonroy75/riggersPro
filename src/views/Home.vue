@@ -10,6 +10,7 @@ const router = useRouter()
 
 const calculators = [
 
+{ name:"Install App", icon:"📲", route:"/install" },
 { name:"Sling Tension", icon:tensionIcon, route:"/calc/tension" },
 { name:"Angle Factor", icon:"📐", route:"/calc/angle-factor" },
 { name:"Load Weight", icon:"⚖️", route:"/calc/load-weight" },
@@ -80,10 +81,15 @@ alt=""
 
 <div class="sponsor">
 
-Powered by  
-<b>IngeniumBright</b>  
-&  
-<b>LanguageArtLife</b>
+Powered by
+<a
+href="https://www.ingeniumbright.com"
+target="_blank"
+rel="noopener noreferrer"
+class="sponsor-link"
+>
+IngeniumBright
+</a>
 
 </div>
 
@@ -181,8 +187,22 @@ font-size:14px;
 
 margin-top:40px;
 text-align:center;
-opacity:0.6;
+opacity:0.95;
 
+}
+
+.sponsor-link{
+color:#facc15;
+font-weight:700;
+margin-left:6px;
+text-decoration:none;
+text-shadow:0 0 8px rgba(250,204,21,0.8), 0 0 16px rgba(250,204,21,0.45);
+transition:text-shadow 0.25s ease, color 0.25s ease;
+}
+
+.sponsor-link:hover{
+color:#fde047;
+text-shadow:0 0 12px rgba(253,224,71,0.95), 0 0 24px rgba(253,224,71,0.6);
 }
 
 </style>

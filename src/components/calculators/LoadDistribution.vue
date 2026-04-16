@@ -13,20 +13,27 @@
     <v-alert v-if="r1" type="info">
     Load on Point 1: {{ r1.toFixed(2) }} kg
     </v-alert>
+    <RiggingAlerts :alerts="alerts" />
     
     </v-container>
     
     </template>
     
     <script>
+    import { analyzeLift } from "@/services/alertEngine"
+    import RiggingAlerts from "@/components/RiggingAlerts.vue"
     export default{
+    components:{
+    RiggingAlerts
+    },
     
     data(){
     return{
     load:null,
     d1:null,
     d2:null,
-    r1:null
+    r1:null,
+    alerts:[]
     }
     },
     
@@ -34,6 +41,9 @@
     calculate(){
     
     this.r1=(this.load*this.d2)/(this.d1+this.d2)
+    this.alerts = analyzeLift("distribution",{
+    r1:this.r1
+    })
     // 🔴 GUARDAR EN HISTORIAL (para analytics)
     this.$store.commit("ADD_HISTORY",{
     type:"Load Distribution",

@@ -24,6 +24,12 @@
     type="number"
     />
     
+    <v-text-field
+    label="Sling WLL"
+    v-model.number="wll"
+    type="number"
+    />
+    
     <v-btn
     color="primary"
     class="mt-4"
@@ -55,7 +61,7 @@
     Danger: Sling angle below 30° greatly increases tension.
     
     </v-alert>
-    
+    <RiggingAlerts :alerts="alerts" />
     </v-card>
     
     </v-container>
@@ -63,8 +69,12 @@
     </template>
     
     <script>
-    
+    import { analyzeLift } from "@/services/alertEngine"
+    import RiggingAlerts from "@/components/RiggingAlerts.vue"
     export default {
+    components:{
+    RiggingAlerts
+    },
     
     data(){
     
@@ -74,10 +84,12 @@
     angle:null,
     tension:null,
     unit:"kg",
+    wll:null,
     
     units:["kg","ton","lb"],
     
-    angleWarning:false
+    angleWarning:false,
+    alerts:[]
     
     }
     
@@ -103,6 +115,14 @@ const weightKg = this.convertWeight()
         this.tension = weightKg / (2 * Math.sin(radians))
 
         this.angleWarning = this.angle < 30
+
+        this.alerts = analyzeLift("tension",{
+
+        angle:this.angle,
+        tension:this.tension,
+        wll:this.wll
+
+        })
 
         this.$store.commit("ADD_HISTORY",{
 

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Rigger Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <script>
+      (function () {
+        var isGithubPagesHost = /\.github\.io$/i.test(location.hostname)
+        var segmentsToKeep = isGithubPagesHost ? 1 : 0
+        var path = location.pathname
+          .split("/")
+          .slice(1 + segmentsToKeep)
+          .join("/")
+        var query = location.search || ""
+        var hash = location.hash || ""
+        var base = "/" + location.pathname.split("/").slice(1, 1 + segmentsToKeep).join("/")
+        if (base === "/") {
+          base = ""
+        }
+
+        var redirectPath = base + "/" + path + query + hash
+        sessionStorage.setItem("ghp_redirect", redirectPath)
+        location.replace(base + "/")
+      })()
+    </script>
+  </body>
+</html>
