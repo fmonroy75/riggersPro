@@ -13,6 +13,20 @@ export default defineConfig(() => {
   return {
     base,
 
+build:{
+  rollupOptions:{
+    output:{
+      chunkFileNames: (chunkInfo) => {
+        let name = chunkInfo.name;
+        if (name.startsWith('_')) {
+          name = name.replace(/^_/, '');
+        }
+        return `assets/${name}-[hash].js`;
+      }
+    }
+  }
+},
+
 plugins:[
 
 vue(),
