@@ -4,7 +4,11 @@ import Home from "../views/Home.vue"
 import Dashboard from "../views/Dashboard.vue"
 
 const routes = [
-
+    {
+        path: "/install",
+        name: "install",
+        component: () => import("../views/InstallApp.vue")
+        },
 {
 path: "/",
 name: "home",

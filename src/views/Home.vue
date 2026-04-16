@@ -2,24 +2,36 @@
 
 import { useRouter } from "vue-router"
 
+import tensionIcon from "@/assets/icons/tension.svg"
+import multiLegIcon from "@/assets/icons/multi-leg.svg"
+import hookIcon from "@/assets/icons/hook.svg"
+
 const router = useRouter()
 
 const calculators = [
 
-{ name:"Sling Tension", icon:"🪝", route:"/calc/tension" },
+{ name:"Sling Tension", icon:tensionIcon, route:"/calc/tension" },
 { name:"Angle Factor", icon:"📐", route:"/calc/angle-factor" },
 { name:"Load Weight", icon:"⚖️", route:"/calc/load-weight" },
 { name:"Center Gravity", icon:"⚙️", route:"/calc/cog" },
 { name:"Crane Moment", icon:"🏗️", route:"/calc/crane-moment" },
 { name:"Shackle Safety", icon:"🔗", route:"/calc/shackle-safety" },
-{ name:"Multi Leg Sling", icon:"🪢", route:"/calc/multi-leg" },
+{ name:"Multi Leg Sling", icon:multiLegIcon, route:"/calc/multi-leg" },
 { name:"Load Distribution", icon:"📦", route:"/calc/distribution" },
 { name:"Wind Load", icon:"🌬️", route:"/calc/wind" },
-{ name:"Hook Load", icon:"🪝", route:"/calc/hook" },
+{ name:"Hook Load", icon:hookIcon, route:"/calc/hook" },
 { name:"Safety Factor", icon:"⚠️", route:"/calc/safety" },
 { name:"Lift Planning", icon:"📋", route:"/calc/lift" }
 
 ]
+
+function isImageIcon(icon){
+return typeof icon === "string" && (
+icon.startsWith("data:image/") ||
+icon.startsWith("/") ||
+icon.includes(".svg")
+)
+}
 
 </script>
 
@@ -44,10 +56,18 @@ class="card"
 
 <div class="icon">
 
+<img
+v-if="isImageIcon(calc.icon)"
+:src="calc.icon"
+class="icon-svg"
+alt=""
+/>
+
+<span v-else class="icon-emoji">
 {{ calc.icon }}
+</span>
 
 </div>
-
 <div class="name">
 
 {{ calc.name }}
@@ -127,10 +147,28 @@ transform:scale(1.05);
 }
 
 .icon{
-
-font-size:30px;
+display:flex;
+align-items:center;
+justify-content:center;
 margin-bottom:8px;
+height:34px;
+line-height:1;
+}
 
+.icon-svg{
+width:28px;
+height:28px;
+display:block;
+object-fit:contain;
+filter:brightness(0) invert(1);
+}
+
+.icon-emoji{
+font-size:28px;
+line-height:1;
+display:inline-flex;
+align-items:center;
+justify-content:center;
 }
 
 .name{

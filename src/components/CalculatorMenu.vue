@@ -31,8 +31,17 @@ class="card"
 
 <router-link :to="calc.route">
 
-<div class="icon">
+    <div class="icon">
+
+<img
+v-if="typeof calc.icon === 'string' && calc.icon.includes('.svg')"
+:src="calc.icon"
+/>
+
+<span v-else>
 {{ calc.icon }}
+</span>
+
 </div>
 
 <div class="title">
@@ -68,10 +77,18 @@ transition:0.3s;
 .card:hover{
 background:#334155;
 }
-
 .icon{
-font-size:28px;
+height:32px;
+display:flex;
+align-items:center;
+justify-content:center;
 margin-bottom:10px;
+}
+
+.icon img{
+width:28px;
+height:28px;
+filter:brightness(0) invert(1);
 }
 
 .title{
