@@ -27,7 +27,7 @@ jobs:
           node-version: 20
 
       - name: Instalar dependencias
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Construir el proyecto (Build)
         # Inyectando variables de entorno desde los Secrets de GitHub
