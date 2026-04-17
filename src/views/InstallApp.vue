@@ -1,63 +1,52 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 </script>
 
 <template>
+  <div class="install">
+    <h1>{{ t('install.title') }}</h1>
+    <p class="intro">{{ t('install.intro') }}</p>
 
-<div class="install">
+    <div class="card">
+      <h2>{{ t('install.android.title') }}</h2>
+      <ol>
+        <li>{{ t('install.android.step1') }}</li>
+        <li>{{ t('install.android.step2') }}</li>
+        <li>
+          {{ t('install.android.step3', { 
+            option1: t('install.android.step3_option1'), 
+            option2: t('install.android.step3_option2') 
+          }) }}
+        </li>
+        <li>{{ t('install.android.step4') }}</li>
+      </ol>
+    </div>
 
-<h1>📲 Instalar Rigger Pro</h1>
+    <div class="card">
+      <h2>{{ t('install.iphone.title') }}</h2>
+      <ol>
+        <li>{{ t('install.iphone.step1', { browser: t('install.iphone.step1_browser') }) }}</li>
+        <li>{{ t('install.iphone.step2', { button: t('install.iphone.step2_button') }) }}</li>
+        <li>{{ t('install.iphone.step3', { option: t('install.iphone.step3_option') }) }}</li>
+        <li>{{ t('install.iphone.step4') }}</li>
+      </ol>
+    </div>
 
-<p class="intro">
-Puedes instalar esta aplicación en tu teléfono y usarla como una app normal.
-</p>
+    <div class="card">
+      <h2>{{ t('install.computer.title') }}</h2>
+      <ol>
+        <li>{{ t('install.computer.step1') }}</li>
+        <li>{{ t('install.computer.step2', { icon: t('install.computer.step2_icon') }) }}</li>
+        <li>{{ t('install.computer.step3', { button: t('install.computer.step3_button') }) }}</li>
+      </ol>
+    </div>
 
-<div class="card">
-
-<h2>📱 Android (Chrome / Edge)</h2>
-
-<ol>
-<li>Abrir la aplicación en el navegador.</li>
-<li>Presionar el menú del navegador (⋮).</li>
-<li>Seleccionar <b>"Instalar aplicación"</b> o <b>"Agregar a pantalla de inicio"</b>.</li>
-<li>Confirmar instalación.</li>
-</ol>
-
-</div>
-
-<div class="card">
-
-<h2>🍏 iPhone / iPad (Safari)</h2>
-
-<ol>
-<li>Abrir la app en <b>Safari</b>.</li>
-<li>Presionar el botón <b>Compartir</b> ⬆️.</li>
-<li>Elegir <b>"Agregar a pantalla de inicio"</b>.</li>
-<li>Confirmar.</li>
-</ol>
-
-</div>
-
-<div class="card">
-
-<h2>💻 Computador</h2>
-
-<ol>
-<li>Abrir la app en Chrome o Edge.</li>
-<li>Buscar el ícono <b>Instalar</b> en la barra del navegador.</li>
-<li>Presionar <b>Install</b>.</li>
-</ol>
-
-</div>
-
-<div class="tip">
-
-⚡ Una vez instalada, la aplicación funcionará como una app normal y podrás usar las calculadoras rápidamente.
-
-</div>
-
-</div>
-
+    <div class="tip">
+      {{ t('install.tip') }}
+    </div>
+  </div>
 </template>
 
 <style scoped>

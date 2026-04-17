@@ -1,20 +1,20 @@
 <template>
 <v-container class="dashboard">
   <div class="d-flex align-center justify-space-between mb-6">
-    <h2>Intelligence Dashboard</h2>
-    <v-chip color="primary" variant="outlined">{{ userList.length }} Lifts Analyzed</v-chip>
+    <h2>{{ $t('dashboard.title') }}</h2>
+    <v-chip color="primary" variant="outlined">{{ userList.length }} {{ $t('dashboard.lifts_analyzed') }}</v-chip>
   </div>
 
   <v-row v-if="loading">
     <v-col class="text-center" cols="12">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
-      <p class="mt-2 text-grey">Analyzing rigging data...</p>
+      <p class="mt-2 text-grey">{{ $t('dashboard.analyzing') }}</p>
     </v-col>
   </v-row>
 
   <template v-else-if="userList.length === 0">
     <v-alert type="info" class="mt-4" icon="mdi-information">
-      No lift data available. Go to the Standard or PRO tools to perform some calculations. Your rigging intelligence insights will appear here.
+      {{ $t('dashboard.no_data') }}
     </v-alert>
   </template>
 
@@ -24,11 +24,11 @@
       <!-- Safety Score -->
       <v-col cols="12" md="3">
         <v-card color="#1e293b" class="fill-height pb-4 px-4 pt-6 text-center score-card">
-          <v-card-subtitle class="text-white text-uppercase" style="letter-spacing: 1px;">Avg Safety Score</v-card-subtitle>
+          <v-card-subtitle class="text-white text-uppercase" style="letter-spacing: 1px;">{{ $t('dashboard.kpi_avg_score') }}</v-card-subtitle>
           <div class="score-circle mt-4" :class="scoreColor">
             {{ avgSafetyScore }}
           </div>
-          <p class="mt-3 text-caption text-grey">Scale 0-100</p>
+          <p class="mt-3 text-caption text-grey">{{ $t('dashboard.score_scale') }}</p>
         </v-card>
       </v-col>
 
@@ -39,21 +39,21 @@
             <v-card color="#1e293b" class="pa-4 text-center fill-height kpi-card">
               <v-icon size="36" color="info" class="mb-2">mdi-weight</v-icon>
               <h3 class="text-h4 font-weight-bold">{{ avgLoadWeight }}</h3>
-              <p class="text-caption text-grey mt-1">Avg Load Weight (kg)</p>
+              <p class="text-caption text-grey mt-1">{{ $t('dashboard.kpi_avg_load') }}</p>
             </v-card>
           </v-col>
           <v-col cols="12" sm="4">
             <v-card color="#1e293b" class="pa-4 text-center fill-height kpi-card">
               <v-icon size="36" color="warning" class="mb-2">mdi-angle-acute</v-icon>
               <h3 class="text-h4 font-weight-bold">{{ avgSlingAngle }}°</h3>
-              <p class="text-caption text-grey mt-1">Avg Sling Angle</p>
+              <p class="text-caption text-grey mt-1">{{ $t('dashboard.kpi_avg_angle') }}</p>
             </v-card>
           </v-col>
           <v-col cols="12" sm="4">
             <v-card color="#1e293b" class="pa-4 text-center fill-height kpi-card">
               <v-icon size="36" color="error" class="mb-2">mdi-alert-octagon</v-icon>
               <h3 class="text-h4 font-weight-bold text-error">{{ totalAlerts }}</h3>
-              <p class="text-caption text-error mt-1">Total Risk Alerts</p>
+              <p class="text-caption text-error mt-1">{{ $t('dashboard.kpi_total_alerts') }}</p>
             </v-card>
           </v-col>
         </v-row>
@@ -64,7 +64,7 @@
     <v-row class="mt-4">
       <v-col cols="12" md="6">
         <v-card color="#1e293b" class="pa-4 flex-column align-center">
-          <h3 class="mb-4 text-center">Sling Angle Usage</h3>
+          <h3 class="mb-4 text-center">{{ $t('dashboard.chart_angle') }}</h3>
           <div class="chart-container align-self-center mx-auto" style="position: relative; height:250px; width:250px;">
             <canvas ref="angleChartCanvas"></canvas>
           </div>
@@ -73,7 +73,7 @@
 
       <v-col cols="12" md="6">
         <v-card color="#1e293b" class="pa-4">
-          <h3 class="mb-4 text-center">Load Weight Distribution (kg)</h3>
+          <h3 class="mb-4 text-center">{{ $t('dashboard.chart_load') }}</h3>
           <div class="chart-container" style="position: relative; height:250px;">
             <canvas ref="loadChartCanvas"></canvas>
           </div>
@@ -85,15 +85,15 @@
     <v-row class="mt-4">
       <v-col cols="12">
         <v-card color="#1e293b" class="pa-5">
-          <h3 class="mb-3 d-flex align-center"><v-icon color="warning" class="mr-2">mdi-lightbulb-on</v-icon> Rigging Efficiency Insights</h3>
+          <h3 class="mb-3 d-flex align-center"><v-icon color="warning" class="mr-2">mdi-lightbulb-on</v-icon> {{ $t('dashboard.insights_title') }}</h3>
           <div class="insight-box mt-3 pa-4 rounded bg-blue-grey-darken-4">
             <template v-if="poorAngles > 0">
-              <p class="text-warning mb-2"><strong>⚠️ Warning:</strong> {{ ((poorAngles / userList.length)*100).toFixed(0) }}% of your lifts used unsafe sling angles (&lt; 45°).</p>
-              <p class="text-white">Your lifts could significantly reduce hook and sling tension by using wider sling angles (60° recommended). Longer slings or lifting beams may be required.</p>
+              <p class="text-warning mb-2"><strong>⚠️ {{ $t('dashboard.warning') }}</strong> {{ $t('dashboard.warning_text_1').replace('{target}', ((poorAngles / userList.length)*100).toFixed(0)) }}</p>
+              <p class="text-white">{{ $t('dashboard.warning_text_2') }}</p>
             </template>
             <template v-else>
-              <p class="text-success mb-2"><strong>✅ Excellent Practice:</strong> You consistently maintain safe sling angles (&ge; 45°).</p>
-              <p class="text-white">This minimizes tension multipliers on your slinging gear.</p>
+              <p class="text-success mb-2"><strong>✅ {{ $t('dashboard.excellent') }}</strong> {{ $t('dashboard.excellent_text_1') }}</p>
+              <p class="text-white">{{ $t('dashboard.excellent_text_2') }}</p>
             </template>
           </div>
         </v-card>
@@ -101,21 +101,21 @@
     </v-row>
 
     <!-- LIFT HISTORY TABLE -->
-    <h3 class="mt-8 mb-4">Lift History Intelligence</h3>
+    <h3 class="mt-8 mb-4">{{ $t('dashboard.table_title') }}</h3>
     <v-table theme="dark" class="bg-blue-grey-darken-4 rounded-lg">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Calculator Type</th>
-          <th>Inputs (Load / Angle)</th>
-          <th>Safety Score</th>
-          <th>Risk Alerts</th>
+          <th>{{ $t('dashboard.col_date') }}</th>
+          <th>{{ $t('dashboard.col_type') }}</th>
+          <th>{{ $t('dashboard.col_inputs') }}</th>
+          <th>{{ $t('dashboard.col_score') }}</th>
+          <th>{{ $t('dashboard.col_alerts') }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="lift in userList" :key="lift.id">
           <td>{{ new Date(lift.timestamp || lift.date).toLocaleDateString() }}</td>
-          <td>{{ lift.type }}</td>
+          <td>{{ $t(`calc_names["${lift.type}"]`) || lift.type }}</td>
           <td>
             <span v-if="lift.inputs?.load">{{ lift.inputs.load.toFixed(0) }} kg</span>
             <span v-if="lift.inputs?.angle"> @ {{ lift.inputs.angle }}°</span>
@@ -128,7 +128,7 @@
           </td>
           <td class="text-error" style="font-size:12px;">
             <div v-for="(alert, i) in (lift.alerts || [])" :key="i">• {{ alert }}</div>
-            <span v-if="!lift.alerts || lift.alerts.length === 0" class="text-success">Safe</span>
+            <span v-if="!lift.alerts || lift.alerts.length === 0" class="text-success">{{ $t('dashboard.safe') }}</span>
           </td>
         </tr>
       </tbody>

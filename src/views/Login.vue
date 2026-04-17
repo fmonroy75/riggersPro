@@ -1,21 +1,21 @@
 <template>
   <div class="auth-container">
     <div class="auth-box">
-      <h2>Iniciar Sesión (PRO)</h2>
+      <h2>{{ $t('auth.login_title') }}</h2>
       <form @submit.prevent="login">
         <div class="input-group">
-          <label>Email</label>
+          <label>{{ $t('auth.email') }}</label>
           <input type="email" v-model="email" required />
         </div>
         <div class="input-group">
-          <label>Contraseña</label>
+          <label>{{ $t('auth.password') }}</label>
           <input type="password" v-model="password" required />
         </div>
-        <button type="submit" class="auth-btn">Ingresar</button>
+        <button type="submit" class="auth-btn">{{ $t('auth.login_btn') }}</button>
       </form>
       <p class="error" v-if="error">{{ error }}</p>
-      <p class="link" @click="$router.push('/register')">¿No tienes cuenta? Regístrate aquí</p>
-      <p class="link" @click="$router.push('/')">Volver al Inicio</p>
+      <p class="link" @click="$router.push('/register')">{{ $t('auth.no_account') }}</p>
+      <p class="link" @click="$router.push('/')">{{ $t('auth.back_home') }}</p>
     </div>
   </div>
 </template>
@@ -39,7 +39,7 @@ export default {
         await signInWithEmailAndPassword(auth, this.email, this.password)
         this.$router.push('/')
       } catch (err) {
-        this.error = "Error al iniciar sesión: " + err.message
+        this.error = this.$t('auth.err_login') + err.message
       }
     }
   }

@@ -1,28 +1,28 @@
 <template>
   <div class="auth-container">
     <div class="auth-box">
-      <h2>Registro PRO</h2>
+      <h2>{{ $t('auth.register_title') }}</h2>
       <form @submit.prevent="register">
         <div class="input-group">
-          <label>Nombre Completo</label>
+          <label>{{ $t('auth.full_name') }}</label>
           <input type="text" v-model="nombre" required />
         </div>
         <div class="input-group">
-          <label>Empresa</label>
+          <label>{{ $t('auth.company') }}</label>
           <input type="text" v-model="empresa" required />
         </div>
         <div class="input-group">
-          <label>Email</label>
+          <label>{{ $t('auth.email') }}</label>
           <input type="email" v-model="email" required />
         </div>
         <div class="input-group">
-          <label>Contraseña</label>
+          <label>{{ $t('auth.password') }}</label>
           <input type="password" v-model="password" required />
         </div>
-        <button type="submit" class="auth-btn">Crear Cuenta</button>
+        <button type="submit" class="auth-btn">{{ $t('auth.register_btn') }}</button>
       </form>
       <p class="error" v-if="error">{{ error }}</p>
-      <p class="link" @click="$router.push('/login')">¿Ya tienes cuenta? Inicia sesión</p>
+      <p class="link" @click="$router.push('/login')">{{ $t('auth.has_account') }}</p>
     </div>
   </div>
 </template>
@@ -63,15 +63,15 @@ export default {
       } catch (err) {
         let msg = err.message;
         if (err.code === 'auth/email-already-in-use') {
-          msg = "El correo ya está registrado.";
+          msg = this.$t('auth.err_already_in_use');
         } else if (err.code === 'auth/weak-password') {
-          msg = "La contraseña debe tener al menos 6 caracteres.";
+          msg = this.$t('auth.err_weak_password');
         } else if (err.code === 'auth/operation-not-allowed') {
-          msg = "La autenticación por Email/Contraseña NO está habilitada en Firebase Console.";
+          msg = this.$t('auth.err_operation_not_allowed');
         } else if (err.code === 'auth/invalid-email') {
-          msg = "El correo no es válido.";
+          msg = this.$t('auth.err_invalid_email');
         }
-        this.error = "Error al registrarse: " + msg;
+        this.error = this.$t('auth.err_register') + msg;
         console.error("Firebase Auth Error:", err);
       }
     }

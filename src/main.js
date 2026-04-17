@@ -18,6 +18,7 @@ import { MotionPlugin } from '@vueuse/motion'
 
 import { auth } from './firebase'
 import { onAuthStateChanged } from 'firebase/auth'
+import i18n from './i18n'
 
 let app
 
@@ -34,6 +35,7 @@ onAuthStateChanged(auth, (user) => {
       .use(store)
       .use(vuetify)
       .use(MotionPlugin)
+      .use(i18n)
       .mount('#app')
   }
 })
