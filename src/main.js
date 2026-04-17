@@ -16,10 +16,25 @@ import { MotionPlugin } from '@vueuse/motion'
 
 /** */
 
-createApp(App)
-  .use(router)
-  .use(store)
-  .use(vuetify)
-  .use(MotionPlugin)
-  .mount('#app')
+import { auth } from './firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+
+let app
+
+onAuthStateChanged(auth, (user) => {
+  store.commit('SET_USER', user)
+  if (user) {
+    store.dispatch('fetchUserProfile', user.uid)
+  }
+  store.commit('SET_AUTH_IS_READY', true)
+
+  if (!app) {
+    app = createApp(App)
+      .use(router)
+      .use(store)
+      .use(vuetify)
+      .use(MotionPlugin)
+      .mount('#app')
+  }
+})
   

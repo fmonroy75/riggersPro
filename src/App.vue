@@ -1,3 +1,7 @@
+<script setup>
+import MobileNav from '@/components/MobileNav.vue'
+</script>
+
 <template>
 
   <div class="app">
