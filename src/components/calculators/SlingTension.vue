@@ -124,20 +124,20 @@ const weightKg = this.convertWeight()
 
         })
 
-        this.$store.commit("ADD_HISTORY",{
+        let safetyScore = 100;
+        if (this.angle < 60) safetyScore -= 20;
+        if (this.angle < 45) safetyScore -= 30;
+        if (this.angle < 30) safetyScore -= 30;
+        if (this.alerts.length > 0) safetyScore -= (this.alerts.length * 10);
+        if (safetyScore < 0) safetyScore = 0;
 
-        type:"Sling Tension",
-
-        weight:this.weight,
-
-        angle:this.angle,
-
-        result:this.tension,
-
-        date:new Date()
-
-        })
-
+        this.$store.dispatch("saveLiftCalculation", {
+            type: "Sling Tension",
+            inputs: { load: weightKg, angle: this.angle },
+            result: { tension: this.tension },
+            alerts: this.alerts.map(a => a.message),
+            safetyScore: safetyScore
+        });
     }
     }
     

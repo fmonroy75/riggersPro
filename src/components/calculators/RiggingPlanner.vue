@@ -61,11 +61,19 @@ export default {
       
       this.alerts = analyzeLift("rigging-planner", { angle: angleDeg, factor, tension });
       
-      this.$store.commit("ADD_HISTORY", {
+      let safetyScore = 100;
+      if (angleDeg < 60) safetyScore -= 20;
+      if (angleDeg < 45) safetyScore -= 30;
+      if (angleDeg < 30) safetyScore -= 40;
+      if (this.alerts.length > 0) safetyScore -= (this.alerts.length * 10);
+      if (safetyScore < 0) safetyScore = 0;
+
+      this.$store.dispatch("saveLiftCalculation", {
         type: "Rigging Planner",
-        weight: this.weight,
-        result: `Tension: ${tension.toFixed(2)}`,
-        date: new Date()
+        inputs: { load: this.weight, angle: angleDeg, width: this.width, slingLength: this.slingLength },
+        result: { tension: tension, factor: factor },
+        alerts: this.alerts.map(a => a.message),
+        safetyScore: safetyScore
       });
     }
   }
