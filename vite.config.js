@@ -8,7 +8,8 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig(() => {
   // Repo objetivo para GitHub Pages:
   // https://fmonroy75.github.io/riggersPro/
-  const base = '/riggersPro/'
+  //const base = '/riggersPro/' -->repositorio local
+  const base = '/'
 
   return {
     base,
