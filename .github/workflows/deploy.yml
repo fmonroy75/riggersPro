@@ -42,8 +42,10 @@ jobs:
           VITE_IMGBB_API: ${{ secrets.VITE_IMGBB_API }}
         run: npm run build
 
-      - name: Desactivar Jekyll
-        run: touch dist/.nojekyll
+      - name: Desactivar Jekyll y configurar SPA routing
+        run: |
+          touch dist/.nojekyll
+          cp dist/index.html dist/404.html
 
       - name: Subir artefacto para Pages
         uses: actions/upload-pages-artifact@v3
